@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest - Aprenda HTML e CSS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-code-square me-2"></i>CodeQuest
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#modules">Módulos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#challenges">Desafios</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <span class="fw-bold">Nível <span id="user-level">1</span></span>
+                        <div class="progress" style="width: 100px; height: 8px;">
+                            <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 25%;"></div>
+                        </div>
+                    </div>
+                    <span id="points-badge" class="badge bg-primary">125 XP</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Aprenda HTML e CSS de forma gamificada</h1>
+            <p class="lead mb-4">Domine as bases do desenvolvimento web através de desafios práticos simples.</p>
+            <a href="#modules" class="btn btn-light btn-lg px-4 py-2 fw-bold">Começar a Jornada</a>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section id="modules" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Módulos de Aprendizagem</h2>
+            <div class="row g-4">
+                <!-- Módulo 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card card h-100" id="module-1">
+                        <div class="card-body">
+                            <span class="badge badge-custom mb-2">Iniciante</span>
+                            <i class="bi bi-lock module-badge locked-badge"></i>
+                            <i class="bi bi-check-circle-fill module-badge completed-checkmark"></i>
+                            <h4 class="card-title">Introdução ao HTML</h4>
+                            <p class="card-text">Aprenda a estrutura básica de documentos HTML e as tags essenciais.</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">Estrutura básica do HTML</li>
+                                <li class="list-group-item">Tags: headings, parágrafos</li>
+                                <li class="list-group-item">Links e imagens</li>
+                            </ul>
+                            <div class="module-completion">
+                                <div class="module-progress" id="module-1-progress"></div>
+                            </div>
+                            <button class="btn btn-outline-primary w-100 mt-3 start-module" data-module="1">Iniciar Módulo</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Módulo 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card card h-100 locked" id="module-2">
+                        <div class="card-body">
+                            <span class="badge badge-custom mb-2">Intermediário</span>
+                            <i class="bi bi-lock module-badge locked-badge"></i>
+                            <i class="bi bi-check-circle-fill module-badge completed-checkmark"></i>
+                            <h4 class="card-title">Fundamentos do CSS</h4>
+                            <p class="card-text">Descubra como estilizar suas páginas com seletores, cores e fontes.</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">Sintaxe CSS e seletores</li>
+                                <li class="list-group-item">Cores e fontes</li>
+                                <li class="list-group-item">Box model básico</li>
+                            </ul>
+                            <div class="module-completion">
+                                <div class="module-progress" id="module-2-progress"></div>
+                            </div>
+                            <button class="btn btn-outline-secondary w-100 mt-3 start-module" data-module="2" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Módulo 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card card h-100 locked" id="module-3">
+                        <div class="card-body">
+                            <span class="badge badge-custom mb-2">Avançado</span>
+                            <i class="bi bi-lock module-badge locked-badge"></i>
+                            <i class="bi bi-check-circle-fill module-badge completed-checkmark"></i>
+                            <h4 class="card-title">Layouts com CSS</h4>
+                            <p class="card-text">Domine técnicas de posicionamento e layout para criar designs responsivos.</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">Display e posicionamento</li>
+                                <li class="list-group-item">Flexbox básico</li>
+                                <li class="list-group-item">Grid layout simples</li>
+                            </ul>
+                            <div class="module-completion">
+                                <div class="module-progress" id="module-3-progress"></div>
+                            </div>
+                            <button class="btn btn-outline-secondary w-100 mt-3 start-module" data-module="3" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section id="challenges" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Desafios Práticos</h2>
+            
+            <div class="alert alert-info mb-4">
+                <i class="bi bi-info-circle me-2"></i> Complete os módulos na ordem para desbloquear todos os desafios.
+            </div>
+            
+            <!-- Desafios do Módulo 1 -->
+            <div class="module-challenges" id="module-1-challenges">
+                <h3 class="mb-4">Desafios do Módulo 1: Introdução ao HTML</h3>
+                
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <h4>Desafio #1: Criar um parágrafo</h4>
+                        <div class="instruction-box">
+                            <p>Use HTML para criar um parágrafo com a tag &lt;p&gt;:</p>
+                            <p class="mb-0"><small>Você pode escrever qualquer texto dentro do parágrafo.</small></p>
+                        </div>
+                        <div id="html-preview-1" class="my-3 p-3 border">
+                            <p>Seu parágrafo aparecerá aqui...</p>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-primary preview-html" data-challenge="1">Visualizar</button>
+                            <button class="btn btn-success check-challenge" data-module="1" data-challenge="1">Verificar Solução</button>
+                            <button class="btn btn-outline-secondary show-solution" data-challenge="1">Mostrar Solução</button>
+                        </div>
+                        <span id="challenge-1-feedback" class="ms-2 d-block mt-2"></span>
+                        
+                        <!-- Container para a solução do desafio 1 -->
+                        <div id="solution-1" class="solution-container">
+                            <div class="solution-title">Solução do Desafio 1:</div>
+                            <pre><code>&lt;p&gt;Meu primeiro parágrafo em HTML!&lt;/p&gt;</code></pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="editor-container mb-3">
+                            <div class="bg-dark text-light p-2">Editor de HTML</div>
+                            <textarea class="code-editor html-editor" data-challenge="1" placeholder="Digite seu HTML aqui...">
+<!-- Adicione seu HTML aqui --></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <h4>Desafio #2: Criar um título</h4>
+                        <div class="instruction-box">
+                            <p>Use HTML para criar um título dengan a tag &lt;h1&gt;:</p>
+                            <p class="mb-0"><small>Você pode escrever qualquer texto dentro do título.</small></p>
+                        </div>
+                        <div id="html-preview-2" class="my-3 p-3 border">
+                            <p>Seu título aparecerá aqui...</p>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-primary preview-html" data-challenge="2">Visualizar</button>
+                            <button class="btn btn-success check-challenge" data-module="1" data-challenge="2">Verificar Solução</button>
+                            <button class="btn btn-outline-secondary show-solution" data-challenge="2">Mostrar Solução</button>
+                        </div>
+                        <span id="challenge-2-feedback" class="ms-2 d-block mt-2"></span>
+                        
+                        <!-- Container para a solução do desafio 2 -->
+                        <div id="solution-2" class="solution-container">
+                            <div class="solution-title">Solução do Desafio 2:</div>
+                            <pre><code>&lt;h1&gt;Meu Primeiro Título&lt;/h1&gt;</code></pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="editor-container mb-3">
+                            <div class="bg-dark text-light p-2">Editor de HTML</div>
+                            <textarea class="code-editor html-editor" data-challenge="2" placeholder="Digite seu HTML aqui...">
+<!-- Adicione seu HTML aqui --></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button id="complete-module-1" class="btn btn-success btn-lg" disabled>Completar Módulo 1</button>
+                </div>
+            </div>
+            
+            <!-- Desafios do Módulo 2 (inicialmente ocultos) -->
+            <div class="module-challenges" id="module-2-challenges" style="display: none;">
+                <h3 class="mb-4">Desafios do Módulo 2: Fundamentos do CSS</h3>
+                
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <h4>Desafio #1: Mudar a cor do texto</h4>
+                        <div class="instruction-box">
+                            <p>Use CSS para mudar a cor do texto abaixo para vermelho:</p>
+                            <p class="mb-0"><small>Você pode usar "cor: vermelho;" (português) ou "color: red;" (inglês).</small></p>
+                        </div>
+                        <p id="text-to-style">Este texto deve ficar vermelho quando você aplicar o estilo correto.</p>
+                        <div class="mt-3">
+                            <button class="btn btn-success check-challenge" data-module="2" data-challenge="1">Verificar Solução</button>
+                            <button class="btn btn-outline-secondary show-solution" data-challenge="3">Mostrar Solução</button>
+                        </div>
+                        <span id="challenge-3-feedback" class="ms-2 d-block mt-2"></span>
+                        
+                        <!-- Aviso sobre linguagem profissional -->
+                        <div id="language-alert-1" class="language-alert">
+                            <i class="bi bi-info-circle"></i> No mundo profissional, usamos termos em inglês: "color" para cor e "red" para vermelho.
+                        </div>
+                        
+                        <!-- Container para a solução do desafio 3 -->
+                        <div id="solution-3" class="solution-container">
+                            <div class="solution-title">Solução do Desafio 1:</div>
+                            <pre><code>#text-to-style {
+    color: red; /* Em CSS usamos termos em inglês: "color" para cor e "red" para vermelho */
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="editor-container">
+                            <div class="bg-dark text-light p-2">Editor de CSS</div>
+                            <textarea class="code-editor css-editor" data-challenge="1" placeholder="Digite seu CSS aqui...">
+#text-to-style {
+    /* Adicione seu CSS aqui */
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <h4>Desafio #2: Mudar a cor de fundo do site</h4>
+                        <div class="instruction-box">
+                            <p>Use CSS para mudar a cor de fundo do site para azul claro:</p>
+                            <p class="mb-0"><small>Você pode usar "fundo: azulclaro;" (português) or "background-color: lightblue;" (inglês).</small></p>
+                        </div>
+                        <p>O fundo do site inteiro deve mudar de cor quando você aplicar o estilo correto.</p>
+                        <div class="mt-3">
+                            <button class="btn btn-success check-challenge" data-module="2" data-challenge="2">Verificar Solução</button>
+                            <button class="btn btn-outline-secondary show-solution" data-challenge="4">Mostrar Solução</button>
+                        </div>
+                        <span id="challenge-4-feedback" class="ms-2 d-block mt-2"></span>
+                        
+                        <!-- Aviso sobre linguagem profissional -->
+                        <div id="language-alert-2" class="language-alert">
+                            <i class="bi bi-info-circle"></i> No mundo profissional, usamos termos em inglês: "background-color" para cor de fundo e "lightblue" para azul claro.
+                        </div>
+                        
+                        <!-- Container para a solução do desafio 4 -->
+                        <div id="solution-4" class="solution-container">
+                            <div class="solution-title">Solução do Desafio 2:</div>
+                            <pre><code>body {
+    background-color: lightblue; /* Em CSS usamos termos em inglês: "background-color" para cor de fundo */
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="editor-container">
+                            <div class="bg-dark text-light p-2">Editor de CSS</div>
+                            <textarea class="code-editor css-editor" data-challenge="2" placeholder="Digite seu CSS aqui...">
+body {
+    /* Adicione seu CSS aqui */
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button id="complete-module-2" class="btn btn-success btn-lg" disabled>Completar Módulo 2</button>
+                </div>
+            </div>
+
+            <!-- Desafios do Módulo 3 (inicialmente ocultos) -->
+            <div class="module-challenges" id="module-3-challenges" style="display: none;">
+                <h3 class="mb-4">Desafios do Módulo 3: Layouts com CSS</h3>
+                
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <h4>Desafio #1: Centralizar um elemento</h4>
+                        <div class="instruction-box">
+                            <p>Use CSS para centralizar a caixa abaixo:</p>
+                            <p class="mb-0"><small>Dica: Use margens automáticas (margin: auto) e defina uma largura.</small></p>
+                        </div>
+                        <div id="box-to-center" class="my-3 p-3 border bg-white">
+                            <p>Esta caixa deve ser centralizada horizontalmente.</p>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-success check-challenge" data-module="3" data-challenge="1">Verificar Solução</button>
+                            <button class="btn btn-outline-secondary show-solution" data-challenge="5">Mostrar Solução</button>
+                        </div>
+                        <span id="challenge-5-feedback" class="ms-2 d-block mt-2"></span>
+                        
+                        <!-- Container para a solução do desafio 5 -->
+                        <div id="solution-5" class="solution-container">
+                            <div class="solution-title">Solução do Desafio 1:</div>
+                            <pre><code>#box-to-center {
+    margin: 0 auto;
+    width: 50%;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="editor-container">
+                            <div class="bg-dark text-light p-2">Editor de CSS</div>
+                            <textarea class="code-editor css-editor" data-challenge="3" placeholder="Digite seu CSS aqui...">
+#box-to-center {
+    /* Adicione seu CSS aqui */
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <h4>Desafio #2: Criar um layout flexbox</h4>
+                        <div class="instruction-box">
+                            <p>Use CSS para transformar o contêiner abaixo em um flexbox com itens dispostos em linha:</p>
+                            <p class="mb-0"><small>Dica: Use display: flex para criar um contêiner flexível.</small></p>
+                        </div>
+                        <div id="flex-container" class="my-3 p-3 border bg-white">
+                            <div class="p-2 border me-2">Item 1</div>
+                            <div class="p-2 border me-2">Item 2</div>
+                            <div class="p-2 border">Item 3</div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-success check-challenge" data-module="3" data-challenge="2">Verificar Solução</button>
+                            <button class="btn btn-outline-secondary show-solution" data-challenge="6">Mostrar Solução</button>
+                        </div>
+                        <span id="challenge-6-feedback" class="ms-2 d-block mt-2"></span>
+                        
+                        <!-- Container para a solução do desafio 6 -->
+                        <div id="solution-6" class="solution-container">
+                            <div class="solution-title">Solução do Desafio 2:</div>
+                            <pre><code>#flex-container {
+    display: flex;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="editor-container">
+                            <div class="bg-dark text-light p-2">Editor de CSS</div>
+                            <textarea class="code-editor css-editor" data-challenge="4" placeholder="Digite seu CSS aqui...">
+#flex-container {
+    /* Adicione seu CSS aqui */
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button id="complete-module-3" class="btn btn-success btn-lg" disabled>Completar Módulo 3</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p>CodeQuest - Aprendizado gamificado de HTML e CSS para iniciantes</p>
+            <p>&copy; 2023 - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Parabéns -->
+    <div class="modal fade" id="congratulationsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Parabéns!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="bi bi-trophy-fill text-warning display-4 mb-3"></i>
+                    <h4>Módulo Concluído!</h4>
+                    <p>Você ganhou <span id="xp-earned">50</span> XP e desbloqueou novos conteúdos!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar Aprendendo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
