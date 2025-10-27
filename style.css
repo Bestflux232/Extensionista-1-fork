@@ -1,91 +1,202 @@
 :root {
-    --primary: #6c63ff;
-    --secondary: #4d44b5;
-    --accent: #ff6584;
-    --light: #f8f9fa;
-    --dark: #212529;
+    --primary: #2c5aa0;
+    --secondary: #4a7bc8;
+    --accent: #ff6b6b;
+    --success: #28a745;
+    --warning: #ffc107;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7ff;
-    color: var(--dark);
-    transition: background-color 0.5s ease;
-}
-
-.navbar {
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: #f8f9fa;
+    line-height: 1.6;
 }
 
 .hero-section {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
-    padding: 5rem 0;
+    padding: 3rem 0;
     border-radius: 0 0 2rem 2rem;
-    margin-bottom: 3rem;
 }
 
 .module-card {
     transition: transform 0.3s, box-shadow 0.3s;
     border-radius: 1rem;
-    overflow: hidden;
     border: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    position: relative;
-}
-
-.module-card.locked {
-    opacity: 0.7;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .module-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-.module-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-}
-
-.badge-custom {
-    background-color: var(--accent);
-    color: white;
-}
-
-.progress-bar {
-    background-color: var(--primary);
-}
-
-.editor-container {
-    border-radius: 0.5rem;
-    overflow: hidden;
+.game-container {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.code-editor {
+/* Estilos para os novos jogos de CSS */
+.challenge-card {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.preview-box {
+    background: white;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: left;
+    margin: 1rem 0;
+    min-height: 100px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.code-input {
     font-family: 'Courier New', monospace;
-    background-color: #2d2d2d;
-    color: #f8f8f2;
-    padding: 1rem;
-    height: 150px;
-    overflow: auto;
-    border: none;
-    resize: none;
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
     font-size: 14px;
 }
 
-.preview-area {
-    background-color: white;
-    padding: 1rem;
-    height: 150px;
-    overflow: auto;
-    border: 1px solid #dee2e6;
+.code-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
 }
 
+.code-guide {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary);
+    position: sticky;
+    top: 20px;
+}
+
+.guide-section {
+    margin-bottom: 1.5rem;
+}
+
+.guide-section:last-child {
+    margin-bottom: 0;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.color-item {
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+
+.color-combination {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.color-pair {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #e9ecef;
+}
+
+.color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.code-example {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.inspiration-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+}
+
+.inspiration-item {
+    margin-bottom: 1rem;
+}
+
+.inspiration-preview {
+    transition: transform 0.3s ease;
+}
+
+.inspiration-preview:hover {
+    transform: scale(1.02);
+}
+
+/* Feedback styles */
+.feedback-success {
+    color: #198754;
+    background: #d1e7dd;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border-left: 4px solid #198754;
+}
+
+.feedback-error {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border-left: 4px solid #dc3545;
+}
+
+.feedback-info {
+    color: #055160;
+    background: #cff4fc;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border-left: 4px solid #0dcaf0;
+}
+
+/* Animações */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.success-pulse {
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Botões */
 .btn-primary {
     background-color: var(--primary);
     border-color: var(--primary);
@@ -96,78 +207,84 @@ body {
     border-color: var(--secondary);
 }
 
-.challenge-complete {
-    animation: celebrate 1s ease;
+.btn-success {
+    background-color: var(--success);
+    border-color: var(--success);
 }
 
-.solution-container {
-    display: none;
-    margin-top: 15px;
-    padding: 15px;
+/* Responsividade */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .game-container {
+        padding: 1rem;
+    }
+    
+    .color-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .code-guide {
+        position: static;
+        margin-top: 2rem;
+    }
+}
+
+/* Estilos para elementos específicos dos jogos */
+.shopping-list {
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 200px;
     background-color: #f8f9fa;
-    border-radius: 5px;
-    border-left: 4px solid var(--primary);
 }
 
-.solution-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: var(--primary);
+.shopping-item {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.instruction-box {
-    background-color: #e9ecef;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+.light-bulb {
+    font-size: 3rem;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-.module-completion {
-    height: 5px;
-    background-color: #e9ecef;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.module-progress {
-    height: 100%;
-    background-color: var(--primary);
-    border-radius: 5px;
-    width: 0%;
-    transition: width 0.5s;
-}
-
-.language-alert {
-    display: none;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
+.light-bulb.on {
     background-color: #fff3cd;
-    border-left: 4px solid #ffc107;
+    color: #ffc107;
 }
 
-@keyframes celebrate {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+.light-bulb.off {
+    background-color: #6c757d;
+    color: #adb5bd;
+    opacity: 0.5;
 }
 
-.completed-checkmark {
-    color: #28a745;
-    font-size: 1.5rem;
-    display: none;
+.light-bulb.auto {
+    background-color: #d1ecf1;
+    color: #0c5460;
 }
 
-.locked-badge {
-    color: #6c757d;
+.calculator {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
 }
 
-.feedback-success {
-    color: #198754;
-    font-weight: bold;
-}
-
-.feedback-error {
-    color: #dc3545;
-    font-weight: bold;
+.result-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 8px;
 }

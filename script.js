@@ -1,314 +1,339 @@
-// JavaScript para a aplicação
-// Sistema de gamificação e progressão
-let userXP = 125;
-let userLevel = 1;
-let currentModule = 1;
-let completedChallenges = {
-    module1: [false, false],
-    module2: [false, false],
-    module3: [false, false]
-};
-
-// Elementos do DOM
-const progressBar = document.getElementById('progress-bar');
-const userLevelElement = document.getElementById('user-level');
-const pointsBadge = document.getElementById('points-badge');
-const congratulationsModal = new bootstrap.Modal(document.getElementById('congratulationsModal'));
-
-// Inicializar a aplicação
-function initApp() {
-    updateUserData();
+// Sistema principal
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Extensionias I - Iniciando...');
     setupEventListeners();
-    unlockModule(1); // Desbloquear o primeiro módulo inicialmente
-}
+    initGames();
+});
 
-// Configurar event listeners
 function setupEventListeners() {
-    // Botões de verificação de desafio
-    document.querySelectorAll('.check-challenge').forEach(button => {
+    console.log('Configurando event listeners...');
+    
+    // Botões de iniciar jogo
+    document.querySelectorAll('.start-game').forEach(button => {
         button.addEventListener('click', function() {
-            const module = this.getAttribute('data-module');
-            const challenge = this.getAttribute('data-challenge');
-            checkChallenge(module, challenge);
+            const gameId = this.getAttribute('data-game');
+            console.log('Iniciando jogo:', gameId);
+            startGame(gameId);
         });
-    });
-    
-    // Botões de visualização
-    document.querySelectorAll('.preview-html').forEach(button => {
-        button.addEventListener('click', function() {
-            const challenge = this.getAttribute('data-challenge');
-            previewHtml(challenge);
-        });
-    });
-    
-    // Botões de mostrar solução
-    document.querySelectorAll('.show-solution').forEach(button => {
-        button.addEventListener('click', function() {
-            const challenge = this.getAttribute('data-challenge');
-            toggleSolution(challenge);
-        });
-    });
-    
-    // Botões de completar módulo
-    document.getElementById('complete-module-1').addEventListener('click', function() {
-        completeModule(1);
-    });
-    
-    document.getElementById('complete-module-2').addEventListener('click', function() {
-        completeModule(2);
     });
 
-    document.getElementById('complete-module-3').addEventListener('click', function() {
-        completeModule(3);
+    // Botão de voltar ao menu
+    document.getElementById('back-to-menu').addEventListener('click', function() {
+        document.getElementById('games').style.display = 'none';
+        document.getElementById('modules').style.display = 'block';
     });
-    
-    // Aplicar CSS em tempo real
-    document.querySelectorAll('.css-editor').forEach(editor => {
-        editor.addEventListener('input', function() {
+
+    // Botões dos jogos de CSS
+    document.querySelectorAll('.test-css-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const type = this.getAttribute('data-type');
             const challenge = this.getAttribute('data-challenge');
-            const code = this.value;
-            
-            // Verificar se o usuário está usando português
-            checkForPortuguese(code, challenge);
-            
-            // Aplicar o CSS (tanto em português quanto em inglês)
-            applyCss(translatePortugueseToEnglish(code), challenge);
+            console.log('Testando CSS:', type, challenge);
+            testCssCode(type, challenge);
         });
     });
+
+    document.querySelectorAll('.solution-css-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const type = this.getAttribute('data-type');
+            const challenge = this.getAttribute('data-challenge');
+            console.log('Mostrando solução:', type, challenge);
+            showCssSolution(type, challenge);
+        });
+    });
+
+    // Botões de ver código dos jogos antigos
+    const showCode1 = document.getElementById('show-code-1');
+    const showCode2 = document.getElementById('show-code-2');
+    const showCode3 = document.getElementById('show-code-3');
+    
+    if (showCode1) showCode1.addEventListener('click', showListCode);
+    if (showCode2) showCode2.addEventListener('click', showCalculatorCode);
+    if (showCode3) showCode3.addEventListener('click', showLightsCode);
 }
 
-// Verificar se o código contém português e mostrar aviso
-function checkForPortuguese(code, challenge) {
-    const alertElement = document.getElementById(`language-alert-${challenge}`);
-    if (!alertElement) return;
+function startGame(gameId) {
+    console.log('Iniciando jogo:', gameId);
     
-    const portugueseKeywords = ['cor:', 'vermelho', 'fundo:', 'azulclaro', 'azul-claro'];
-    const hasPortuguese = portugueseKeywords.some(keyword => code.toLowerCase().includes(keyword));
+    // Esconder módulos e mostrar área de jogos
+    document.getElementById('modules').style.display = 'none';
+    document.getElementById('games').style.display = 'block';
     
-    if (hasPortuguese) {
-        alertElement.style.display = 'block';
-    } else {
-        alertElement.style.display = 'none';
+    // Esconder todos os jogos
+    document.querySelectorAll('.game-container').forEach(container => {
+        container.style.display = 'none';
+    });
+    
+    // Mostrar o jogo selecionado
+    const currentGame = document.getElementById(`game-${gameId}-container`);
+    if (currentGame) {
+        currentGame.style.display = 'block';
     }
-}
-
-// Traduzir termos em português para inglês
-function translatePortugueseToEnglish(code) {
-    let translated = code;
     
-    // Traduzir propriedades e valores
-    const translations = {
-        'cor:': 'color:',
-        'fundo:': 'background-color:',
-        'vermelho': 'red',
-        'azulclaro': 'lightblue',
-        'azul-claro': 'lightblue'
+    // Atualizar título
+    const gameTitles = {
+        '1': '📝 Lista de Compras',
+        '2': '🧮 Calculadora Simples', 
+        '3': '💡 Luzes da Casa',
+        '4': '🎨 CSS Básico',
+        '5': '📦 Variáveis JavaScript',
+        '6': '⚙️ Funções JavaScript',
+        '7': '🎨 Cores CSS',
+        '8': '🔤 Fontes CSS',
+        '9': '💫 Designer CSS'
     };
     
-    for (const [pt, en] of Object.entries(translations)) {
-        translated = translated.replace(new RegExp(pt, 'gi'), en);
-    }
-    
-    return translated;
+    document.getElementById('current-game-title').textContent = gameTitles[gameId] || 'Jogo';
 }
 
-// Atualizar a interface com os dados do usuário
-function updateUserData() {
-    userLevelElement.textContent = userLevel;
-    pointsBadge.textContent = userXP + ' XP';
-    
-    // Atualizar barra de progresso (simplificado)
-    const progressPercentage = (userXP % 100);
-    progressBar.style.width = progressPercentage + '%';
+// ========== JOGOS 1-3 (ORIGINAIS) ==========
+function initGames() {
+    initShoppingList();
+    initCalculator();
+    initLights();
 }
 
-// Verificar um desafio
-function checkChallenge(module, challenge) {
-    let isCorrect = false;
-    const feedbackElement = document.getElementById(`challenge-${challenge}-feedback`);
+function initShoppingList() {
+    let shoppingList = [];
     
-    if (module === '1') {
-        if (challenge === '1') {
-            // Verificar se criou um parágrafo (qualquer texto dentro de <p></p>)
-            const editor = document.querySelector('.html-editor[data-challenge="1"]');
-            isCorrect = editor.value.includes('<p>') && editor.value.includes('</p>');
-        } else if (challenge === '2') {
-            // Verificar se criou um título h1 (qualquer texto dentro de <h1></h1>)
-            const editor = document.querySelector('.html-editor[data-challenge="2"]');
-            isCorrect = editor.value.includes('<h1>') && editor.value.includes('</h1>');
-        }
-    } else if (module === '2') {
-        if (challenge === '1') {
-            // Verificar se a cor do texto é vermelha (aceita tanto português quanto inglês)
-            const textElement = document.getElementById('text-to-style');
-            const computedStyle = window.getComputedStyle(textElement);
-            isCorrect = computedStyle.color === 'rgb(255, 0, 0)';
-        } else if (challenge === '2') {
-            // Verificar se a cor de fundo do body é azul claro (lightblue) - aceita tanto português quanto inglês
-            const bodyElement = document.body;
-            const computedStyle = window.getComputedStyle(bodyElement);
-            isCorrect = computedStyle.backgroundColor === 'rgb(173, 216, 230)'; // lightblue em RGB
-        }
-    } else if (module === '3') {
-        if (challenge === '1') {
-            // Verificar se a caixa está centralizada
-            const boxElement = document.getElementById('box-to-center');
-            const computedStyle = window.getComputedStyle(boxElement);
-            isCorrect = computedStyle.marginLeft === 'auto' && computedStyle.marginRight === 'auto';
-        } else if (challenge === '2') {
-            // Verificar se o contêiner é um flexbox
-            const flexContainer = document.getElementById('flex-container');
-            const computedStyle = window.getComputedStyle(flexContainer);
-            isCorrect = computedStyle.display === 'flex';
-        }
-    }
-    
-    if (isCorrect) {
-        feedbackElement.innerHTML = '<span class="feedback-success"><i class="bi bi-check-circle-fill"></i> Parabéns! Você completou o desafio!</span>';
-        completedChallenges[`module${module}`][challenge-1] = true;
+    document.getElementById('add-item').addEventListener('click', function() {
+        const itemInput = document.getElementById('item-input');
+        const item = itemInput.value.trim();
         
-        // Atualizar progresso do módulo
-        updateModuleProgress(module);
-        
-        // Dar XP
-        userXP += 25;
-        updateUserData();
-    } else {
-        feedbackElement.innerHTML = '<span class="feedback-error"><i class="bi bi-exclamation-circle-fill"></i> Ainda não está correto. Continue tentando!</span>';
-    }
-}
-
-// Visualizar HTML
-function previewHtml(challenge) {
-    const editor = document.querySelector(`.html-editor[data-challenge="${challenge}"]`);
-    const previewArea = document.getElementById(`html-preview-${challenge}`);
-    previewArea.innerHTML = editor.value;
-}
-
-// Aplicar CSS
-function applyCss(cssCode, challenge) {
-    let styleElement = document.getElementById(`dynamic-style-${challenge}`);
-    
-    if (!styleElement) {
-        styleElement = document.createElement('style');
-        styleElement.id = `dynamic-style-${challenge}`;
-        document.head.appendChild(styleElement);
-    }
-    
-    styleElement.textContent = cssCode;
-}
-
-// Mostrar/ocultar solução
-function toggleSolution(challenge) {
-    const solutionContainer = document.getElementById(`solution-${challenge}`);
-    const button = document.querySelector(`.show-solution[data-challenge="${challenge}"]`);
-    
-    if (solutionContainer.style.display === 'block') {
-        solutionContainer.style.display = 'none';
-        button.textContent = 'Mostrar Solução';
-    } else {
-        solutionContainer.style.display = 'block';
-        button.textContent = 'Ocultar Solução';
-        
-        // Preencher o editor com a solução
-        if (challenge === '3') {
-            const editor = document.querySelector('.css-editor[data-challenge="1"]');
-            editor.value = '#text-to-style {\n    color: red;\n}';
-            applyCss('#text-to-style { color: red; }', '1');
-        } else if (challenge === '4') {
-            const editor = document.querySelector('.css-editor[data-challenge="2"]');
-            editor.value = 'body {\n    background-color: lightblue;\n}';
-            applyCss('body { background-color: lightblue; }', '2');
-        } else if (challenge === '5') {
-            const editor = document.querySelector('.css-editor[data-challenge="3"]');
-            editor.value = '#box-to-center {\n    margin: 0 auto;\n    width: 50%;\n}';
-            applyCss('#box-to-center { margin: 0 auto; width: 50%; }', '3');
-        } else if (challenge === '6') {
-            const editor = document.querySelector('.css-editor[data-challenge="4"]');
-            editor.value = '#flex-container {\n    display: flex;\n}';
-            applyCss('#flex-container { display: flex; }', '4');
+        if (item) {
+            shoppingList.push(item);
+            updateShoppingListDisplay();
+            itemInput.value = '';
+            itemInput.focus();
         }
-    }
-}
-
-// Atualizar progresso do módulo
-function updateModuleProgress(module) {
-    const challenges = completedChallenges[`module${module}`];
-    const completedCount = challenges.filter(c => c).length;
-    const totalCount = challenges.length;
-    const progressPercentage = (completedCount / totalCount) * 100;
+    });
     
-    document.getElementById(`module-${module}-progress`).style.width = `${progressPercentage}%`;
+    document.getElementById('clear-list').addEventListener('click', function() {
+        shoppingList = [];
+        updateShoppingListDisplay();
+    });
     
-    // Se todos os desafios estão completos, habilitar o botão de completar módulo
-    if (completedCount === totalCount) {
-        document.getElementById(`complete-module-${module}`).disabled = false;
-    }
-}
-
-// Completar um módulo
-function completeModule(module) {
-    // Dar XP bônus por completar o módulo
-    userXP += 50;
-    updateUserData();
-    
-    // Marcar módulo como concluído
-    const moduleElement = document.getElementById(`module-${module}`);
-    moduleElement.querySelector('.locked-badge').style.display = 'none';
-    moduleElement.querySelector('.completed-checkmark').style.display = 'block';
-    moduleElement.classList.remove('locked');
-    
-    // Atualizar UI
-    document.getElementById(`module-${module}-progress`).style.width = '100%';
-    
-    // Mostrar modal de parabéns
-    document.getElementById('xp-earned').textContent = '50';
-    congratulationsModal.show();
-    
-    // Desbloquear próximo módulo
-    if (module < 3) {
-        unlockModule(module + 1);
-    }
-    
-    // Esconder desafios do módulo atual e mostrar do próximo
-    if (module === 1) {
-        document.getElementById('module-1-challenges').style.display = 'none';
-        document.getElementById('module-2-challenges').style.display = 'block';
-    } else if (module === 2) {
-        document.getElementById('module-2-challenges').style.display = 'none';
-        document.getElementById('module-3-challenges').style.display = 'block';
-    } else if (module === 3) {
-        document.getElementById('module-3-challenges').style.display = 'none';
-        // Todos os módulos concluídos
-    }
-}
-
-// Desbloquear um módulo
-function unlockModule(module) {
-    const moduleElement = document.getElementById(`module-${module}`);
-    moduleElement.classList.remove('locked');
-    moduleElement.querySelector('.locked-badge').style.display = 'none';
-    
-    const button = moduleElement.querySelector('.start-module');
-    button.disabled = false;
-    button.classList.remove('btn-outline-secondary');
-    button.classList.add('btn-outline-primary');
-    button.textContent = 'Iniciar Módulo';
-    
-    // Configurar evento de clique para iniciar módulo
-    button.addEventListener('click', function() {
-        // Esconder todos os desafios primeiro
-        document.querySelectorAll('.module-challenges').forEach(el => {
-            el.style.display = 'none';
+    function updateShoppingListDisplay() {
+        const listContainer = document.getElementById('shopping-list');
+        listContainer.innerHTML = '';
+        
+        if (shoppingList.length === 0) {
+            listContainer.innerHTML = '<p class="text-muted text-center">Sua lista está vazia. Adicione alguns itens!</p>';
+            return;
+        }
+        
+        shoppingList.forEach((item, index) => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'shopping-item';
+            itemElement.innerHTML = `
+                <span>${index + 1}. ${item}</span>
+                <button class="btn btn-sm btn-outline-danger remove-item" data-index="${index}">×</button>
+            `;
+            listContainer.appendChild(itemElement);
         });
         
-        // Mostrar desafios do módulo selecionado
-        document.getElementById(`module-${module}-challenges`).style.display = 'block';
-        
-        // Scroll para a seção de desafios
-        document.getElementById('challenges').scrollIntoView({ behavior: 'smooth' });
-    });
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                shoppingList.splice(index, 1);
+                updateShoppingListDisplay();
+            });
+        });
+    }
 }
 
-// Inicializar a aplicação quando o documento estiver carregado
-document.addEventListener('DOMContentLoaded', initApp);
+function initCalculator() {
+    document.querySelectorAll('.operation-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const operation = this.getAttribute('data-op');
+            calculate(operation);
+        });
+    });
+    
+    function calculate(operation) {
+        const num1 = parseFloat(document.getElementById('num1').value) || 0;
+        const num2 = parseFloat(document.getElementById('num2').value) || 0;
+        let result;
+        
+        switch(operation) {
+            case '+': result = num1 + num2; break;
+            case '-': result = num1 - num2; break;
+            case '*': result = num1 * num2; break;
+            case '/': result = num2 !== 0 ? num1 / num2 : 'Erro: Divisão por zero'; break;
+        }
+        
+        document.getElementById('calc-result').textContent = result;
+    }
+}
+
+function initLights() {
+    let lights = {
+        living: 'on',
+        bedroom: 'off', 
+        kitchen: 'auto'
+    };
+    
+    document.querySelectorAll('.light-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const room = this.getAttribute('data-room');
+            const state = this.getAttribute('data-state');
+            
+            lights[room] = state;
+            updateLightDisplay(room);
+            
+            document.querySelectorAll(`.light-btn[data-room="${room}"]`).forEach(btn => {
+                btn.classList.remove('btn-success', 'btn-warning');
+                btn.classList.add('btn-outline-secondary');
+            });
+            this.classList.remove('btn-outline-secondary');
+            this.classList.add(state === 'auto' ? 'btn-warning' : 'btn-success');
+        });
+    });
+    
+    function updateLightDisplay(room) {
+        const lightElement = document.getElementById(`${room}-light`);
+        lightElement.className = 'light-bulb ' + lights[room];
+        
+        if (lights[room] === 'auto') {
+            const isNight = new Date().getHours() >= 18 || new Date().getHours() <= 6;
+            lightElement.textContent = isNight ? '💡 (Noite - Acesa)' : '💡 (Dia - Apagada)';
+            lightElement.style.backgroundColor = isNight ? '#fff3cd' : '#6c757d';
+        } else {
+            lightElement.textContent = '💡';
+        }
+    }
+    
+    Object.keys(lights).forEach(room => updateLightDisplay(room));
+}
+
+// ========== JOGOS 7-9 (NOVOS CSS) ==========
+
+function testCssCode(type, challengeId) {
+    const codeInput = document.getElementById(`${type}-code-${challengeId}`);
+    const preview = document.getElementById(`${type}-preview-${challengeId}`);
+    const feedback = document.getElementById(`${type}-feedback-${challengeId}`);
+    
+    if (!codeInput || !preview || !feedback) {
+        console.error('Elementos não encontrados:', type, challengeId);
+        return;
+    }
+    
+    const code = codeInput.value;
+    
+    // Aplicar o código CSS
+    if (type === 'design' && challengeId === '2') {
+        const button = preview.querySelector('button');
+        if (button) button.style = code;
+    } else {
+        preview.style = code;
+    }
+    
+    // Verificar se está correto
+    let isCorrect = false;
+    let message = '';
+    
+    if (type === 'color') {
+        switch(challengeId) {
+            case '1':
+                const textColor = getComputedStyle(preview).color;
+                isCorrect = textColor === 'rgb(255, 0, 0)';
+                message = isCorrect ? 
+                    '✅ Correto! Você mudou a cor do texto para vermelho.' : 
+                    '❌ Tente usar: color: red;';
+                break;
+            case '2':
+                const bgColor = getComputedStyle(preview).backgroundColor;
+                isCorrect = bgColor === 'rgb(173, 216, 230)';
+                message = isCorrect ? 
+                    '✅ Correto! Você mudou a cor de fundo para azul claro.' : 
+                    '❌ Tente usar: background-color: lightblue;';
+                break;
+            case '3':
+                const textColor3 = getComputedStyle(preview).color;
+                const bgColor3 = getComputedStyle(preview).backgroundColor;
+                isCorrect = textColor3 === 'rgb(255, 255, 255)' && bgColor3 === 'rgb(0, 128, 0)';
+                message = isCorrect ? 
+                    '✅ Perfeito! Texto branco em fundo verde.' : 
+                    '❌ Use: color: white; background-color: green;';
+                break;
+        }
+    } else if (type === 'font') {
+        switch(challengeId) {
+            case '1':
+                const fontSize = getComputedStyle(preview).fontSize;
+                isCorrect = fontSize === '24px';
+                message = isCorrect ? 
+                    '✅ Correto! Você aumentou o tamanho da fonte para 24px.' : 
+                    '❌ Tente usar: font-size: 24px;';
+                break;
+            case '2':
+                const fontFamily = getComputedStyle(preview).fontFamily.toLowerCase();
+                isCorrect = fontFamily.includes('arial');
+                message = isCorrect ? 
+                    '✅ Correto! Você mudou a fonte para Arial.' : 
+                    '❌ Tente usar: font-family: Arial;';
+                break;
+            case '3':
+                const fontWeight = getComputedStyle(preview).fontWeight;
+                const fontStyle = getComputedStyle(preview).fontStyle;
+                isCorrect = (fontWeight === '700' || fontWeight === 'bold') && fontStyle === 'italic';
+                message = isCorrect ? 
+                    '✅ Excelente! Texto em negrito e itálico.' : 
+                    '❌ Use: font-weight: bold; font-style: italic;';
+                break;
+        }
+    } else if (type === 'design') {
+        // Critérios mais flexíveis para design
+        isCorrect = true;
+        message = '✅ Ótimo trabalho! Seu design está ficando incrível.';
+    }
+    
+    // Mostrar feedback
+    feedback.innerHTML = `<div class="${isCorrect ? 'feedback-success' : 'feedback-error'}">${message}</div>`;
+    
+    // Animar se correto
+    if (isCorrect) {
+        preview.classList.add('success-pulse');
+        setTimeout(() => preview.classList.remove('success-pulse'), 500);
+    }
+}
+
+function showCssSolution(type, challengeId) {
+    const solutions = {
+        color: {
+            1: 'color: red;',
+            2: 'background-color: lightblue;',
+            3: 'color: white; background-color: green;'
+        },
+        font: {
+            1: 'font-size: 24px;',
+            2: 'font-family: Arial;',
+            3: 'font-weight: bold; font-style: italic;'
+        },
+        design: {
+            1: 'background-color: #2c3e50; color: white; padding: 20px; border-radius: 10px; font-family: Arial;',
+            2: 'background: #3498db; color: white; padding: 12px 24px; border: none; border-radius: 25px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);'
+        }
+    };
+    
+    const codeInput = document.getElementById(`${type}-code-${challengeId}`);
+    if (codeInput && solutions[type] && solutions[type][challengeId]) {
+        codeInput.value = solutions[type][challengeId];
+        testCssCode(type, challengeId);
+    }
+}
+
+// Funções auxiliares dos jogos antigos
+function showListCode() {
+    alert(`📋 CÓDIGO DA LISTA DE COMPRAS:\n\nlet listaCompras = [];\nlistaCompras.push("arroz");\nlistaCompras.push("feijão");\nconsole.log(listaCompras);`);
+}
+
+function showCalculatorCode() {
+    alert(`🧮 CÓDIGO DA CALCULADORA:\n\nlet numero1 = 10;\nlet numero2 = 5;\nlet soma = numero1 + numero2;\nconsole.log("Soma: " + soma);`);
+}
+
+function showLightsCode() {
+    alert(`💡 CÓDIGO DAS LUZES:\n\nlet estaEscuro = true;\nif (estaEscuro) {\n  console.log("Acender a luz");\n} else {\n  console.log("Apagar a luz");\n}`);
+}
+
+console.log('Extensionias I - Todos os jogos carregados!');
