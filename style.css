@@ -4,14 +4,55 @@
     --accent: #ff6b6b;
     --success: #28a745;
     --warning: #ffc107;
+    --dark-bg: #121212;
+    --dark-card: #1e1e1e;
+    --dark-text: #e0e0e0;
+    --dark-border: #333;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+.dark-mode .card,
+.dark-mode .game-container,
+.dark-mode .challenge-card,
+.dark-mode .code-guide,
+.dark-mode .inspiration-section {
+    background-color: var(--dark-card);
+    color: var(--dark-text);
+    border-color: var(--dark-border);
+}
+
+.dark-mode .preview-box,
+.dark-mode .shopping-list,
+.dark-mode .calculator {
+    background: #2a2a2a;
+    border-color: #444;
+    color: var(--dark-text);
+}
+
+.dark-mode .code-input {
+    background-color: #2d3748;
+    color: var(--dark-text);
+    border-color: #4a5568;
+}
+
+.dark-mode .alert-info {
+    background-color: #032830;
+    border-color: #055160;
+    color: #6ea8fe;
+}
+
+/* Hero Section */
 .hero-section {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
@@ -19,6 +60,7 @@ body {
     border-radius: 0 0 2rem 2rem;
 }
 
+/* Cards */
 .module-card {
     transition: transform 0.3s, box-shadow 0.3s;
     border-radius: 1rem;
@@ -31,6 +73,7 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
+/* Containers */
 .game-container {
     background: white;
     border-radius: 1rem;
@@ -38,7 +81,7 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* Estilos para os novos jogos de CSS */
+/* Challenge Section */
 .challenge-card {
     background: white;
     border: 2px solid #e9ecef;
@@ -48,6 +91,7 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+/* Code and Preview Boxes */
 .preview-box {
     background: white;
     border: 2px dashed #dee2e6;
@@ -73,6 +117,7 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
 }
 
+/* Guide Section */
 .code-guide {
     background: #f8f9fa;
     padding: 1.5rem;
@@ -82,14 +127,7 @@ body {
     top: 20px;
 }
 
-.guide-section {
-    margin-bottom: 1.5rem;
-}
-
-.guide-section:last-child {
-    margin-bottom: 0;
-}
-
+/* Color utilities */
 .color-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -130,6 +168,7 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Code Example */
 .code-example {
     background: #2d3748;
     color: #e2e8f0;
@@ -141,32 +180,14 @@ body {
     margin-top: 10px;
 }
 
-.inspiration-section {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 10px;
-    border: 2px solid #e9ecef;
-}
-
-.inspiration-item {
-    margin-bottom: 1rem;
-}
-
-.inspiration-preview {
-    transition: transform 0.3s ease;
-}
-
-.inspiration-preview:hover {
-    transform: scale(1.02);
-}
-
-/* Feedback styles */
+/* Feedback messages */
 .feedback-success {
     color: #198754;
     background: #d1e7dd;
     padding: 0.75rem;
     border-radius: 5px;
     border-left: 4px solid #198754;
+    font-weight: 500;
 }
 
 .feedback-error {
@@ -175,28 +196,84 @@ body {
     padding: 0.75rem;
     border-radius: 5px;
     border-left: 4px solid #dc3545;
+    font-weight: 500;
 }
 
-.feedback-info {
-    color: #055160;
-    background: #cff4fc;
-    padding: 0.75rem;
+/* Progress system */
+.progress-container {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.progress-game {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
     border-radius: 5px;
-    border-left: 4px solid #0dcaf0;
+    transition: background 0.2s;
+    cursor: pointer;
 }
 
-/* Animações */
+.progress-game:hover {
+    background: #f8f9fa;
+}
+
+.progress-game.completed {
+    background: #e8f5e8;
+}
+
+.progress-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.progress-icon.incomplete {
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+.progress-icon.completed {
+    background: var(--success);
+    color: white;
+}
+
+/* Animations */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
+@keyframes confetti {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
 .success-pulse {
     animation: pulse 0.5s ease-in-out;
 }
 
-/* Botões */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    opacity: 0;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Buttons */
 .btn-primary {
     background-color: var(--primary);
     border-color: var(--primary);
@@ -207,32 +284,7 @@ body {
     border-color: var(--secondary);
 }
 
-.btn-success {
-    background-color: var(--success);
-    border-color: var(--success);
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 2rem 0;
-    }
-    
-    .game-container {
-        padding: 1rem;
-    }
-    
-    .color-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .code-guide {
-        position: static;
-        margin-top: 2rem;
-    }
-}
-
-/* Estilos para elementos específicos dos jogos */
+/* Specific game elements */
 .shopping-list {
     border: 2px dashed #dee2e6;
     border-radius: 10px;
@@ -252,6 +304,7 @@ body {
     align-items: center;
 }
 
+/* Light bulb states */
 .light-bulb {
     font-size: 3rem;
     text-align: center;
@@ -276,6 +329,7 @@ body {
     color: #0c5460;
 }
 
+/* Calculator */
 .calculator {
     background: white;
     padding: 1.5rem;
@@ -287,4 +341,38 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-radius: 8px;
+}
+
+/* Hint system */
+.hint-container {
+    background: #e7f3ff;
+    border-left: 4px solid var(--primary);
+    padding: 1rem;
+    border-radius: 0 5px 5px 0;
+    margin-top: 1rem;
+    display: none;
+}
+
+.hint-container.show {
+    display: block;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .game-container {
+        padding: 1rem;
+    }
+    
+    .color-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .code-guide {
+        position: static;
+        margin-top: 2rem;
+    }
 }
